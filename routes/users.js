@@ -38,10 +38,28 @@ router.put('/:id', function(req, res, next) {
       return res.json(updatedUser);
     }
   }
-  res.status(404).json({ message: 'User not found' });
+  res.status(404).json({ message: "Usuario no encontrado" });
 });
 
+/* DELETE user listing. */
+router.delete('/:id', function(req, res, next) {
+  var userId = req.params.id;
+  var found = false;
 
+  for (var i = 0; i < users.length; i++) {
+    if (users[i].id == userId) {
+      users.splice(i, 1);
+      found = true;
+      break;
+    }
+  }
+
+  if (found) {
+    res.json({ message: "Usuario borrado correctamente" });
+  } else {
+    res.status(404).json({ message: "Usuario no encotnrado" });
+  }
+});
 
 
 
